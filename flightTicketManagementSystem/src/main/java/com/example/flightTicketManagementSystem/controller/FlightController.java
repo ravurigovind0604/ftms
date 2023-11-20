@@ -1,6 +1,7 @@
 package com.example.flightTicketManagementSystem.controller;
 
 import com.example.flightTicketManagementSystem.dto.FlightDTO;
+import com.example.flightTicketManagementSystem.entity.FlightEntity;
 import com.example.flightTicketManagementSystem.service.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,22 +20,29 @@ public class FlightController {
     private FlightService flightService;
 
 
-    @GetMapping("/showflightDetails/{id}")
-    ResponseEntity<FlightDTO> showflightDetails(@PathVariable int id) {
-        FlightDTO flightDTO = flightService.showFlightDetails(id).getBody();
-        return ResponseEntity.status(HttpStatus.OK).body(flightDTO);
-    }
+//    @GetMapping("/showflightDetails/{id}")
+//    ResponseEntity<FlightDTO> showflightDetails(@PathVariable int id) {
+//        FlightDTO flightDTO = flightService.showFlightDetails(id).getBody();
+//        return ResponseEntity.status(HttpStatus.OK).body(flightDTO);
+//    }
     @PostMapping("/updateAvailableSeats/{id}")
     void updateAvailableSeats(@PathVariable int id)
     {
         flightService.updateAvailableSeats(id);
     }
 
+//    @GetMapping("/showflightDetailsBasedOnDepartureAndArrivalAndDepartureTime")
+//    ResponseEntity<List<FlightDTO>> showflightDetailsDAD(@RequestParam Integer departure,
+//                                                         @RequestParam Integer arrival, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date departureDate) {
+//        List<FlightDTO> flightDTO = flightService.showFlightDetailsDAD(departure,arrival,departureDate).getBody();
+//        return ResponseEntity.status(HttpStatus.OK).body(flightDTO);
+//    }
+
     @GetMapping("/showflightDetailsBasedOnDepartureAndArrivalAndDepartureTime")
-    ResponseEntity<List<FlightDTO>> showflightDetailsDAD(@RequestParam Integer departure,
-                                                         @RequestParam Integer arrival, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date departureDate) {
-        List<FlightDTO> flightDTO = flightService.showFlightDetailsDAD(departure,arrival,departureDate).getBody();
+    ResponseEntity<List<FlightEntity>> showflightDetailsDAD(@RequestParam Integer departure,
+                                                            @RequestParam Integer arrival,
+                                                            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date departureDate) {
+        List<FlightEntity> flightDTO = flightService.showFlightDetailsDAD(departure, arrival, departureDate).getBody();
         return ResponseEntity.status(HttpStatus.OK).body(flightDTO);
     }
-
 }

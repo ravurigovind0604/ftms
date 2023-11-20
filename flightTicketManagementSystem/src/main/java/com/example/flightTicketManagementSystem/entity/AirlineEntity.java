@@ -33,9 +33,7 @@ public class AirlineEntity {
 
     private String airlineName;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "airlineEntity")
-    @JsonManagedReference
-    private List<FlightEntity> flightEntity;
+
 
 }
 

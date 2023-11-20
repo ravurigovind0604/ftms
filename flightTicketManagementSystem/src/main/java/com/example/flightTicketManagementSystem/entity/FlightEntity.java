@@ -1,6 +1,7 @@
 package com.example.flightTicketManagementSystem.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,23 +18,44 @@ public class FlightEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int flightId;
 
-    @ManyToOne
-    @JoinColumn(name="airline_id")
-    @JsonBackReference
-    private AirlineEntity airlineEntity;
-    @ManyToOne
-    @JoinColumn(name = "departureAirportIdReference")
-    private AirportEntity departureAirport;
 
-    @ManyToOne
-    @JoinColumn(name = "arrivalAirportIdReference")
-    private AirportEntity arrivalAirport;
+
     private int flightNumber;
     private Date departureDateTime;
     private Date arrivalDateTime;
 
     @Column(name = "new_date_column", columnDefinition = "DATE")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+
     private Date departureDate;
+
+    public int getAirlineId() {
+        return airlineId;
+    }
+
+    public void setAirlineId(int airlineId) {
+        this.airlineId = airlineId;
+    }
+
+    private int airlineId;
+    public int getArrivalAirportId() {
+        return arrivalAirportId;
+    }
+
+    public void setArrivalAirportId(int arrivalAirportId) {
+        this.arrivalAirportId = arrivalAirportId;
+    }
+
+    public int getDepartureAirportId() {
+        return departureAirportId;
+    }
+
+    public void setDepartureAirportId(int departureAirportId) {
+        this.departureAirportId = departureAirportId;
+    }
+
+    private int arrivalAirportId;
+    private int departureAirportId;
 
     public Date getDepartureDate() {
         return departureDate;
@@ -51,29 +73,8 @@ public class FlightEntity {
         this.flightId = flightId;
     }
 
-    public AirlineEntity getAirlineEntity() {
-        return airlineEntity;
-    }
 
-    public void setAirlineEntity(AirlineEntity airlineEntity) {
-        this.airlineEntity = airlineEntity;
-    }
 
-    public AirportEntity getDepartureAirport() {
-        return departureAirport;
-    }
-
-    public void setDepartureAirport(AirportEntity departureAirport) {
-        this.departureAirport = departureAirport;
-    }
-
-    public AirportEntity getArrivalAirport() {
-        return arrivalAirport;
-    }
-
-    public void setArrivalAirport(AirportEntity arrivalAirport) {
-        this.arrivalAirport = arrivalAirport;
-    }
 
     public int getFlightNumber() {
         return flightNumber;

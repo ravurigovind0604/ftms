@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface FlightRepo extends JpaRepository<FlightEntity,Integer> {
-    @Query("Select u from FlightEntity u where u.departureAirport.airportId = :departure and u.arrivalAirport.airportId = :arrival and u.departureDate = :departureDate")
+    @Query("Select u from FlightEntity u where u.departureAirportId = :departure and u.arrivalAirportId = :arrival and u.departureDate = :departureDate")
     List<FlightEntity> findByDepartureAndArrivalAndDepartureDate(int departure, int arrival, Date departureDate);
 
 }
