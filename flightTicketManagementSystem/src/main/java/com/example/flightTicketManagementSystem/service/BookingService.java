@@ -2,8 +2,10 @@ package com.example.flightTicketManagementSystem.service;
 
 import com.example.flightTicketManagementSystem.dto.BookingAndPassengerDTO;
 import com.example.flightTicketManagementSystem.entity.BookingEntity;
+import com.example.flightTicketManagementSystem.entity.FlightEntity;
 import com.example.flightTicketManagementSystem.entity.PassengerEntity;
 import com.example.flightTicketManagementSystem.repo.BookingRepo;
+import com.example.flightTicketManagementSystem.repo.FlightRepo;
 import com.example.flightTicketManagementSystem.repo.PassengerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,12 +22,17 @@ public class BookingService {
     @Autowired
     private PassengerRepo passengerRepo;
 
+    @Autowired
+    private FlightRepo flightRepo;
 
 
 
     public ResponseEntity<BookingEntity> saveBooking(BookingEntity b){
         b.setBookingStatus("Confirmed");
         bookingRepo.save(b);
+        FlightEntity f=flightRepo.getReferenceById(b.getFlightReferenceId());
+        f.setAvailableSeats(f.getAvailableSeats()-1);
+        flightRepo.save(f);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

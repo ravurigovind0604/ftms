@@ -54,7 +54,7 @@ public class FlightEntity {
         this.departureAirportId = departureAirportId;
     }
 
-    private int arrivalAirportId;
+    @Column(name = "arrival_airport_id") private int arrivalAirportId;
     private int departureAirportId;
 
     public Date getDepartureDate() {

@@ -25,7 +25,7 @@ public class FlightController {
 //        FlightDTO flightDTO = flightService.showFlightDetails(id).getBody();
 //        return ResponseEntity.status(HttpStatus.OK).body(flightDTO);
 //    }
-    @PostMapping("/updateAvailableSeats/{id}")
+    @PutMapping("/updateAvailableSeats/{id}")
     void updateAvailableSeats(@PathVariable int id)
     {
         flightService.updateAvailableSeats(id);
@@ -45,4 +45,17 @@ public class FlightController {
         List<FlightEntity> flightDTO = flightService.showFlightDetailsDAD(departure, arrival, departureDate).getBody();
         return ResponseEntity.status(HttpStatus.OK).body(flightDTO);
     }
+    @PostMapping("/createFlightEntity")
+    String createFlightEntity(@RequestBody FlightEntity f){
+        try {
+             flightService.createFlightEntity(f);
+            return "successfully flight Entity is created";
+        }
+        catch(Exception e){
+            return  "exception occured";
+
+        }
+    }
+//
+
 }

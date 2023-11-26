@@ -1,19 +1,16 @@
 package com.example.flightTicketManagementSystem.service;
 
-import com.example.flightTicketManagementSystem.dto.FlightDTO;
-import com.example.flightTicketManagementSystem.entity.AirportEntity;
 import com.example.flightTicketManagementSystem.entity.FlightEntity;
 import com.example.flightTicketManagementSystem.repo.AirportRepo;
 import com.example.flightTicketManagementSystem.repo.FlightRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class FlightService {
@@ -66,8 +63,36 @@ public class FlightService {
     }
 
     public ResponseEntity<List<FlightEntity>> showFlightDetailsDAD(Integer departure, Integer arrival, Date departureDate) {
-        List<FlightEntity> s= flightRepo.findByDepartureAndArrivalAndDepartureDate(departure,arrival,departureDate);
-        return ResponseEntity.status(HttpStatus.OK).body(s);
+
+            List<FlightEntity> s = flightRepo.findByDepartureAndArrivalAndDepartureDate(departure, arrival, departureDate);
+            if(!s.isEmpty()){
+            return ResponseEntity.status(HttpStatus.OK).body(s);}
+            else{
+                FlightEntity f= new FlightEntity();
+                f.setAirlineId(1);
+                f.setFlightNumber(4567);
+                f.setAvailableSeats(150);
+                f.setArrivalAirportId(arrival);
+                f.setDepartureAirportId(departure);
+                f.setDepartureDate(departureDate);
+                f.setArrivalDateTime(departureDate);
+                f.setDepartureDateTime(departureDate);
+                f.setDuration(90);
+                flightRepo.save(f);
+                return ResponseEntity.status(HttpStatus.OK).body(Collections.singletonList(f));
+            }
+
+
+
 //
     }
+
+    public void createFlightEntity(FlightEntity f) {
+        flightRepo.save(f);
+
+    }
+
+//    public ResponseEntity<List<FlightDTO>> showFlightDetailsMOM(Integer departure, Integer arrival, Date departureDate) {
+//        List<FlightDTO> f=new ArrayList<FlightDTO>();
+//    }
 }

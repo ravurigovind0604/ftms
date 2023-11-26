@@ -7,12 +7,14 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class FlightDTO {
     private int flightId;
 
