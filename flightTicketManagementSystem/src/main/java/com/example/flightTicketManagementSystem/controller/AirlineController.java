@@ -16,6 +16,11 @@ public class AirlineController {
     @Autowired
     private AirlineService airlineService;
 
+    @GetMapping("/welcome")
+    public String g(){
+        return "succesfully backend deployed";
+    }
+
     @GetMapping("/showAirlineDetails/{id}")
     ResponseEntity<AirlineEntity> showAirlineDetails(@PathVariable int id) {
         AirlineEntity airlineEntity = airlineService.showAirlineDetails(id).getBody();
